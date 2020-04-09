@@ -16,3 +16,45 @@
  */
 
 package com.example.android.devbyteviewer.database
+
+import android.content.Context
+import androidx.lifecycle.LiveData
+import androidx.room.*
+
+@Dao
+interface VideoDao {
+
+    @Query("SELECT * FROM DatabaseVideo")
+    fun getVideos(): LiveData<List<DatabaseVideo>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(vararg videos: DatabaseVideo)
+}
+
+@Database(entities = [DatabaseVideo::class], version = 1, exportSchema = false)
+abstract class VideosDatabase : RoomDatabase() {
+
+    abstract val videoDao: VideoDao
+
+    companion object {
+
+        private lateinit var INSTANCE: VideosDatabase
+
+        fun getInstance(context: Context): VideosDatabase {
+            synchronized(this) {
+                var instance = INSTANCE
+
+                if (!::INSTANCE.isInitialized) {
+                    instance = Room.databaseBuilder(
+                            context.applicationContext,//use applicationContext instead of activity to avoid memory leak and share it to all activities
+                            VideosDatabase::class.java,
+                            "videos"
+                    ).fallbackToDestructiveMigration()
+                            .build()
+                    INSTANCE = instance
+                }
+                return instance
+            }
+        }
+    }
+}
