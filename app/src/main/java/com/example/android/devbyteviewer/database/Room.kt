@@ -42,18 +42,15 @@ abstract class VideosDatabase : RoomDatabase() {
 
         fun getInstance(context: Context): VideosDatabase {
             synchronized(this) {
-                var instance = INSTANCE
-
                 if (!::INSTANCE.isInitialized) {
-                    instance = Room.databaseBuilder(
+                    INSTANCE = Room.databaseBuilder(
                             context.applicationContext,//use applicationContext instead of activity to avoid memory leak and share it to all activities
                             VideosDatabase::class.java,
                             "videos"
                     ).fallbackToDestructiveMigration()
                             .build()
-                    INSTANCE = instance
                 }
-                return instance
+                return INSTANCE
             }
         }
     }
