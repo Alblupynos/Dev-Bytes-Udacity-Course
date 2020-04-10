@@ -35,10 +35,10 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="0dp"
-        app:cardElevation="5dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="16dp">
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="5dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -64,6 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
+                android:contentDescription="@string/play_icon"
                 app:layout_constraintStart_toStartOf="@+id/left_well"
                 app:layout_constraintTop_toBottomOf="@+id/video_thumbnail"
                 app:srcCompat="@drawable/ic_play_circle_outline_black_48dp" />
@@ -96,17 +97,18 @@
                 android:textAllCaps="false"
                 android:textColor="@color/text_light"
                 android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/right_well"
                 app:layout_constraintStart_toStartOf="@+id/left_well"
                 app:layout_constraintTop_toBottomOf="@+id/title"
-                app:layout_constraintBottom_toBottomOf="parent"
-                tools:text="this is a vedeo @android:string/fingerprint_icon_content_description" />
+                tools:text="this is a video @android:string/fingerprint_icon_content_description" />
 
             <ImageView
                 android:id="@+id/video_thumbnail"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:adjustViewBounds="false"
+                android:contentDescription="@string/video_thumbnail"
                 android:cropToPadding="false"
                 android:scaleType="centerCrop"
                 app:imageUrl="@{video.thumbnail}"
